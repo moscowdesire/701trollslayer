@@ -1,0 +1,13 @@
+Things updated due to Github failing and having to do a new repo.
+
+Picaso_mf_kconfig
+
+RNDIS activated
+CIFS support
+All governors added
+All schedulers added
+
+
+Makefile
+Version change added
+22/11/13

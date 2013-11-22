@@ -245,9 +245,16 @@ static void rev_sku_to_speedo_ids(int rev, int sku)
 				threshold_index = 10;
 				break;
 			case 2: /* DSC => T30S */
+#ifdef CONFIG_TEGRA_CPU_OVERCLOCK
+                 /* fake it to behave as AP33 variant */
+                 cpu_speedo_id = 4;
+                 soc_speedo_id = 1;
+                 threshold_index = 7;
+#else
 				cpu_speedo_id = 3;
 				soc_speedo_id = 2;
 				threshold_index = 3;
+#endif
 				break;
 			default:
 				pr_err("Tegra3 Rev-A02: Reserved pkg: %d\n",

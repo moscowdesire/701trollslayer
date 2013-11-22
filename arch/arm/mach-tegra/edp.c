@@ -314,7 +314,7 @@ static struct tegra_edp_limits edp_default_limits[] = {
 	{85, {1000000, 1000000, 1000000, 1000000} },
 };
 
-
+#define GAMING_REDUCTION_FREQ  10
 
 /*
  * Specify regulator current in mA, e.g. 5000mA
@@ -362,7 +362,11 @@ void __init tegra_init_cpu_edp_limits(unsigned int regulator_mA)
 
 	for (j = 0; j < edp_limits_size; j++) {
 		e[j].temperature = (int)t[i+j].temperature;
+#ifdef CONFIG_TEGRA3_GAMING_FIX
+        e[j].freq_limits[0] = (unsigned int)(t[i+j].freq_limits[0]-GAMING_REDUCTION_FREQ) * 10000;
+#else
 		e[j].freq_limits[0] = (unsigned int)t[i+j].freq_limits[0] * 10000;
+#endif
 		e[j].freq_limits[1] = (unsigned int)t[i+j].freq_limits[1] * 10000;
 		e[j].freq_limits[2] = (unsigned int)t[i+j].freq_limits[2] * 10000;
 		e[j].freq_limits[3] = (unsigned int)t[i+j].freq_limits[3] * 10000;
